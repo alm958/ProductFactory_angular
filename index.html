@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app='pApp'>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="master.css">
+        <script src='bower_components/angular/angular.js'></script>
+        <script src="main.js" charset="utf-8"></script>
+        <title>Product Factory</title>
+    </head>
+    <body>
+        <div ng-controller='mainController'>
+            <fieldset>
+                <legend>Products</legend>
+                <form>
+                    <label>Name : <input type="text" ng-model='newProd.name'></label><br>
+                    <label>Price : <input type="number" step="0.01"  ng-model='newProd.price'></label><br>
+                    <input type="submit" ng-click='addProduct()' value="Add Product">
+                </form>
+                <table ng-if='productList.length > 0'>
+                    <tr>
+                        <th> <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Product Name</a></th>
+                        <th> <a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">Product Price</a></th>
+                        <th> <a href="#" ng-click="sortType = 'itemNo'; sortReverse = !sortReverse">Product #</a></th>
+                        <th>Action</th>
+                    </tr>
+                    <tr ng-repeat="prod in productList | orderBy:sortType:sortReverse">
+                        <td>{{prod.name}}</td>
+                        <td>{{prod.price | currency:"USD $"}}</td>
+                        <td>{{prod.itemNo}}</td>
+                        <td><button ng-click='delProduct(prod.itemNo)'>Delete</button></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+
+    </body>
+</html>
